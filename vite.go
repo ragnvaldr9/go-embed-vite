@@ -9,6 +9,7 @@ import (
 )
 
 type AssetsData = map[string]any
+
 type Vite struct {
 	RootFS          fs.FS
 	DistFS          fs.FS
@@ -45,7 +46,7 @@ func NewVite(cfg *ViteConfig) (*Vite, error) {
 	v.Platform = cfg.Platform
 	v.Template = cfg.Template
 
-	distFs, err := fs.Sub(cfg.RootFS, "static")
+	distFs, err := fs.Sub(cfg.RootFS, cfg.OutDir)
 
 	if err != nil {
 		return nil, err
@@ -62,7 +63,7 @@ func NewVite(cfg *ViteConfig) (*Vite, error) {
 			return nil, err
 		}
 
-		v.AssetsPath = path.Join("static", v.AssetsDir)
+		v.AssetsPath = path.Join(cfg.OutDir, v.AssetsDir)
 	}
 
 	if v.Env == "development" {

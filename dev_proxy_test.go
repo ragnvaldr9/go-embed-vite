@@ -34,7 +34,7 @@ func runTestServer() {
 func TestDevProx(t *testing.T) {
 	go runTestServer()
 
-	proxy := &DevProxy{url: fmt.Sprintf("%v:%v", PROXY_TARGET_HOST, PROXY_TARGET_PORT)}
+	proxy := &devProxy{url: fmt.Sprintf("%v:%v", PROXY_TARGET_HOST, PROXY_TARGET_PORT)}
 
 	handler := http.StripPrefix("/", proxy)
 

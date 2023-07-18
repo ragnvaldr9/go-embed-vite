@@ -28,20 +28,19 @@ func checkBool(v any) bool {
 	return false
 }
 
-func processChunck(chunck, data AssetsData, chunckList *[]AssetsData) error {
+func processChunck(chunck, data AssetsData) []AssetsData {
+	list := []AssetsData{}
+
 	if checkBool(chunck["isEntry"]) {
-		if checkBool(data["isEntry"]) {
-			return errors.New(MULTIPLE_ENTRY_ERR)
-		}
 		mapChunck(chunck, data)
-		*chunckList = append(*chunckList, chunck)
+		list = append(list, chunck)
 	} else {
 		var node = make(AssetsData)
 		mapChunck(chunck, node)
-		*chunckList = append(*chunckList, node)
+		list = append(list, node)
 	}
 
-	return nil
+	return list
 }
 
 func mapManifest(m any) (AssetsData, []AssetsData, error) {
@@ -52,17 +51,13 @@ func mapManifest(m any) (AssetsData, []AssetsData, error) {
 	}
 
 	raw := AssetsData{}
-	chuncks := []AssetsData{}
+	var chuncks []AssetsData
 
 	for _, chunck := range manifest {
 		m, ok := chunck.(map[string]any)
 		if ok {
-			err := processChunck(m, raw, &chuncks)
-			if err != nil {
-				return nil, nil, err
-			}
+			chuncks = processChunck(m, raw)
 		} else {
-
 			return nil, nil, errors.New(INVALID_MANIFEST_STRUCT)
 		}
 	}

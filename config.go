@@ -16,6 +16,8 @@ type ViteConfig struct {
 	Env string
 	// react, vue, svelte, default - react
 	Platform string
+	// name of vite build output folder (default - dist)
+	OutDir string
 	// name of static assets folder (default - assets)
 	AssetsDir string
 	// AssetsURLPrefix (/assets/ for prod, /src/ for dev)
@@ -32,6 +34,7 @@ var defaults = map[string]string{
 	"SrcDir":              "src",
 	"AssetsURLPrefixProd": "/assets/",
 	"AssetsURLPrefixDev":  "/src/",
+	"OutDir":              "dist",
 	"AssetsDir":           "assets",
 	"DevServerHost":       "localhost",
 	"DevServerPort":       "3000",
@@ -68,6 +71,10 @@ func (cfg *ViteConfig) setDefaults() {
 
 	if cfg.Platform == "" {
 		cfg.Platform = defaults["Platform"]
+	}
+
+	if cfg.OutDir == "" {
+		cfg.OutDir = defaults["AssetsDir"]
 	}
 
 	if cfg.AssetsDir == "" {
