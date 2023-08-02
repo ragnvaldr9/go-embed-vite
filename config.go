@@ -26,6 +26,8 @@ type ViteConfig struct {
 	DevServerHost string
 	// port of dev server (default - 3000)
 	DevServerPort string
+	// frontend app main file (default - main.tsx)
+	EntryPoint string
 }
 
 var defaults = map[string]string{
@@ -38,6 +40,7 @@ var defaults = map[string]string{
 	"AssetsDir":           "assets",
 	"DevServerHost":       "localhost",
 	"DevServerPort":       "3000",
+	"EntryPoint":          "main.tsx",
 }
 
 func (cfg *ViteConfig) setProdDefaults() {
@@ -61,6 +64,10 @@ func (cfg *ViteConfig) setDevDefaults() {
 
 	if cfg.SrcDir == "" {
 		cfg.SrcDir = defaults["SrcDir"]
+	}
+
+	if cfg.EntryPoint == "" {
+		cfg.EntryPoint = defaults["EntryPoint"]
 	}
 }
 

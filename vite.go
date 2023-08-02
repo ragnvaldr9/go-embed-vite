@@ -19,6 +19,7 @@ type Vite struct {
 	AssetsPath      string
 	AssetsDir       string
 	AssetsURLPrefix string
+	EntryPoint      string
 	Template        *template.Template
 	DevServerURL    string
 	data            AssetsData
@@ -72,6 +73,7 @@ func NewVite(cfg *ViteConfig) (*Vite, error) {
 	}
 
 	v.AssetsURLPrefix = cfg.AssetsURLPrefix
+	v.EntryPoint = cfg.EntryPoint
 
 	return v, nil
 }

@@ -56,7 +56,7 @@ func (v *Vite) Tags() (template.HTML, error) {
 
 		b.WriteString(`
 			<script type="module" src="{{ .DevServerURL }}/@vite/client"></script>
-        	<script type="module" src="{{ .DevServerURL }}/{{ .SrcDir }}/main.tsx"></script>
+        	<script type="module" src="{{ .DevServerURL }}/{{ .SrcDir }}/{{ .EntryPoint }}"></script>
 		`)
 	}
 
