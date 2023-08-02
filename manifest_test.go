@@ -17,7 +17,6 @@ type testSuite struct {
 var testSuits = []testSuite{
 	{arg: validManifest, expectedData: expectedMap, expectedChuncksList: expectedChuncks, expectedError: nil},
 	{arg: invalidManifest, expectedData: nil, expectedChuncksList: nil, expectedError: errors.New(INVALID_MANIFEST_STRUCT)},
-	{arg: multipleEntryManifest, expectedData: nil, expectedChuncksList: nil, expectedError: errors.New(MULTIPLE_ENTRY_ERR)},
 }
 
 func TestMapManifest(t *testing.T) {

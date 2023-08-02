@@ -16,6 +16,8 @@ type ViteConfig struct {
 	Env string
 	// react, vue, svelte, default - react
 	Platform string
+	// name of vite build output folder (default - dist)
+	OutDir string
 	// name of static assets folder (default - assets)
 	AssetsDir string
 	// AssetsURLPrefix (/assets/ for prod, /src/ for dev)
@@ -24,6 +26,8 @@ type ViteConfig struct {
 	DevServerHost string
 	// port of dev server (default - 3000)
 	DevServerPort string
+	// frontend app main file (default - main.tsx)
+	EntryPoint string
 }
 
 var defaults = map[string]string{
@@ -32,9 +36,11 @@ var defaults = map[string]string{
 	"SrcDir":              "src",
 	"AssetsURLPrefixProd": "/assets/",
 	"AssetsURLPrefixDev":  "/src/",
+	"OutDir":              "dist",
 	"AssetsDir":           "assets",
 	"DevServerHost":       "localhost",
 	"DevServerPort":       "3000",
+	"EntryPoint":          "main.tsx",
 }
 
 func (cfg *ViteConfig) setProdDefaults() {
@@ -59,6 +65,10 @@ func (cfg *ViteConfig) setDevDefaults() {
 	if cfg.SrcDir == "" {
 		cfg.SrcDir = defaults["SrcDir"]
 	}
+
+	if cfg.EntryPoint == "" {
+		cfg.EntryPoint = defaults["EntryPoint"]
+	}
 }
 
 func (cfg *ViteConfig) setDefaults() {
@@ -68,6 +78,10 @@ func (cfg *ViteConfig) setDefaults() {
 
 	if cfg.Platform == "" {
 		cfg.Platform = defaults["Platform"]
+	}
+
+	if cfg.OutDir == "" {
+		cfg.OutDir = defaults["AssetsDir"]
 	}
 
 	if cfg.AssetsDir == "" {
